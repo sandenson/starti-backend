@@ -4,6 +4,7 @@ import {
   SwaggerDocumentOptions,
   SwaggerModule,
 } from '@nestjs/swagger';
+import helmet from 'helmet';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -26,6 +27,8 @@ async function bootstrap() {
     SwaggerModule.createDocument(app, config, options);
 
   SwaggerModule.setup('api', app, documentFactory);
+
+  app.use(helmet());
 
   await app.listen(3000);
 }
