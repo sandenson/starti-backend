@@ -45,15 +45,15 @@ export class User {
   })
   biography?: string;
 
-  @CreateDateColumn({ name: 'created_at ' })
+  @CreateDateColumn({ name: 'created_at' })
   @ApiProperty({ example: new Date().toISOString() })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at ' })
+  @UpdateDateColumn({ name: 'updated_at' })
   @ApiProperty({ example: new Date().toISOString() })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deleted_at ' })
+  @DeleteDateColumn({ name: 'deleted_at' })
   @ApiProperty({ example: new Date().toISOString(), nullable: true })
   deletedAt?: Date;
 
