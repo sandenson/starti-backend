@@ -8,17 +8,26 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  Index,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
+@Index('UQ_USERNAME', ['username'], {
+  unique: true,
+  where: '(deleted_at IS NULL)',
+})
+@Index('UQ_EMAIL', ['email'], {
+  unique: true,
+  where: '(deleted_at IS NULL)',
+})
 export class User {
   @PrimaryGeneratedColumn('uuid')
   @ApiProperty({ description: 'Generated UUID', example: randomUUID() })
   id: string;
 
-  @Column({ length: 50, unique: true })
+  @Column({ length: 50 })
   @ApiProperty({ example: 'janedoe67' })
   username: string;
 
@@ -26,7 +35,7 @@ export class User {
   @ApiProperty({ example: 'Jane Doe' })
   name: string;
 
-  @Column({ length: 200, unique: true })
+  @Column({ length: 200 })
   @ApiProperty({ example: 'example@email.com' })
   email: string;
 
