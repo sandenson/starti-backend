@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { User } from './user/entities/user.entity';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -28,8 +29,9 @@ import { UserModule } from './user/user.module';
         username: config.get('PG_USER'),
         password: config.get('PG_PASSWORD'),
         database: config.get('PG_DB_NAME'),
-        entities: [],
+        entities: [User],
         synchronize: !(config.get('PG_DB_NAME') == 'prod'),
+        autoLoadEntities: true,
       }),
       inject: [ConfigService],
     }),
