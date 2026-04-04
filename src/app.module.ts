@@ -33,6 +33,7 @@ import { PostModule } from './post/post.module';
         entities: [User],
         synchronize: !(config.get('PG_DB_NAME') == 'prod'),
         autoLoadEntities: true,
+        namingStrategy: new SnakeNamingStrategy(),
       }),
       inject: [ConfigService],
     }),
