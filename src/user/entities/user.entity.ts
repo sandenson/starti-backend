@@ -13,7 +13,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'users' })
 @Index('UQ_USERNAME', ['username'], {
   unique: true,
   where: '(deleted_at IS NULL)',
