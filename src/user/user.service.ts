@@ -79,8 +79,6 @@ export class UserService {
       }
     }
 
-    console.log('oxe');
-
     const updated = this.usersRepository.merge(user, dto);
     return this.usersRepository.save(updated);
   }

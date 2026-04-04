@@ -16,6 +16,7 @@ import {
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { PostslessUser } from './types';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -36,7 +37,7 @@ export class UserController {
   @ApiCreatedResponse({
     description:
       'Creates new user and returns the record stored in the database',
-    type: User,
+    type: PostslessUser,
   })
   create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.userService.create(createUserDto);
@@ -44,8 +45,9 @@ export class UserController {
 
   @Get()
   @ApiOkResponse({
-    description: 'Returns every user stored in the database',
-    type: [User],
+    description:
+      "Returns every user stored in the database that's not soft-deleted",
+    type: [PostslessUser],
   })
   findAll() {
     return this.userService.findAll();
@@ -57,7 +59,7 @@ export class UserController {
   })
   @ApiOkResponse({
     description: 'Returns the corresponding user',
-    type: User,
+    type: PostslessUser,
   })
   async findOne(@Param('id') id: string): Promise<User> {
     return await this.userService.findOne(id);
@@ -83,7 +85,7 @@ export class UserController {
   @ApiOkResponse({
     description:
       "Update is successful and the user's new state in the database is returned",
-    type: User,
+    type: PostslessUser,
   })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
@@ -92,7 +94,7 @@ export class UserController {
   @Delete(':id')
   @ApiNotFoundResponse({
     description: 'NotFoundException: User not found',
-    type: User,
+    type: PostslessUser,
   })
   @ApiOkResponse({
     description:
@@ -109,7 +111,7 @@ export class UserController {
   @ApiOkResponse({
     description:
       'User successfully fully removed; its final state in the database is returned',
-    type: User,
+    type: PostslessUser,
   })
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
