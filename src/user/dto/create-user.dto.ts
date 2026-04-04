@@ -1,3 +1,9 @@
+import {
+  Replace,
+  ToLowerCase,
+  ToString,
+  Trim,
+} from '@buka/class-transformer-extra';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
@@ -15,8 +21,12 @@ export class CreateUserDto {
     description: 'Name must be at most 50 characters long',
     example: 'janedoe67',
   })
+  @ToString({ optional: true })
   @IsString()
   @IsNotEmpty()
+  @Trim()
+  @Replace(/\s/g, '')
+  @ToLowerCase()
   @MaxLength(50)
   username: string;
 
@@ -25,6 +35,8 @@ export class CreateUserDto {
     example: 'Jane Doe',
   })
   @IsString()
+  @IsNotEmpty()
+  @Trim()
   @MaxLength(200)
   name: string;
 
@@ -33,11 +45,13 @@ export class CreateUserDto {
       'Email must be an email address and at most 200 characters long',
     example: 'example@email.com',
   })
+  @Trim()
   @IsEmail()
   @MaxLength(200)
   email: string;
 
   @ApiProperty({ description: passwordMessage, example: 'Strong12!@' })
+  @Trim()
   @IsStrongPassword(
     { minSymbols: 2, minNumbers: 2 },
     {
