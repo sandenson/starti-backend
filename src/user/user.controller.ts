@@ -13,6 +13,8 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
 } from '@nestjs/swagger';
+import { Post as PostEntity } from 'src/post/entities/post.entity';
+import { UserlessPost } from 'src/post/types';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -63,6 +65,18 @@ export class UserController {
   })
   async findOne(@Param('id') id: string): Promise<User> {
     return await this.userService.findOne(id);
+  }
+
+  @Get(':id/public-posts')
+  @ApiNotFoundResponse({
+    description: 'NotFoundException: User not found',
+  })
+  @ApiOkResponse({
+    description: "Returns the user's posts that are not archived",
+    type: [UserlessPost],
+  })
+  async findPublicPosts(@Param('id') id: string): Promise<PostEntity[]> {
+    return await this.userService.findPublicPosts(id);
   }
 
   @Patch(':id')

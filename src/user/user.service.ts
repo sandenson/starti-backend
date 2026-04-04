@@ -4,6 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Post } from 'src/post/entities/post.entity';
 import { Not, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -14,6 +15,8 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    @InjectRepository(Post)
+    private postsRepository: Repository<Post>,
   ) {}
 
   async create(dto: CreateUserDto): Promise<User> {
@@ -59,6 +62,14 @@ export class UserService {
 
       throw e;
     }
+  }
+
+  async findPublicPosts(userId: string): Promise<Post[]> {
+    const posts = await this.postsRepository.find({
+      where: { userId, archived: false },
+    });
+
+    return posts;
   }
 
   async update(id: string, dto: UpdateUserDto): Promise<User> {
