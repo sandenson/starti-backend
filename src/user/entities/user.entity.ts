@@ -54,6 +54,14 @@ export class User {
   })
   biography?: string;
 
+  @OneToMany(() => Post, (post) => post.user)
+  @ApiProperty({
+    description: 'Posts made by the user',
+    type: () => Post,
+    isArray: true,
+  })
+  posts: Post[];
+
   @CreateDateColumn({ name: 'created_at' })
   @ApiProperty({ example: new Date().toISOString() })
   createdAt: Date;

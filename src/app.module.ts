@@ -2,11 +2,13 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from 'joi';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Post } from './post/entities/post.entity';
+import { PostModule } from './post/post.module';
 import { User } from './user/entities/user.entity';
 import { UserModule } from './user/user.module';
-import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -30,7 +32,7 @@ import { PostModule } from './post/post.module';
         username: config.get('PG_USER'),
         password: config.get('PG_PASSWORD'),
         database: config.get('PG_DB_NAME'),
-        entities: [User],
+        entities: [User, Post],
         synchronize: !(config.get('PG_DB_NAME') == 'prod'),
         autoLoadEntities: true,
         namingStrategy: new SnakeNamingStrategy(),
