@@ -96,7 +96,7 @@ export class UserController {
   })
   @ApiOkResponse({
     description:
-      'User succesfully soft removed; its current state in the database is returned',
+      'User successfully soft removed; its current state in the database is returned',
   })
   softRemove(@Param('id') id: string) {
     return this.userService.softRemove(id);
@@ -108,7 +108,7 @@ export class UserController {
   })
   @ApiOkResponse({
     description:
-      'User succesfully fully removed; its final state in the database is returned',
+      'User successfully fully removed; its final state in the database is returned',
     type: User,
   })
   remove(@Param('id') id: string) {
