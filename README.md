@@ -1,3 +1,5 @@
+# -> API route documentation at the bottom
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
@@ -30,6 +32,12 @@
 
 ```bash
 $ yarn install
+```
+
+## Containers
+
+```bash
+$ docker compose up -d
 ```
 
 ## Running the app
