@@ -12,6 +12,7 @@ import {
   IsStrongPassword,
   MaxLength,
 } from 'class-validator';
+import { lipsumParagraph } from 'src/utils';
 
 const passwordMessage =
   'Password must be at least 8 characters long, at most 50 characters long, and contain at least 1 lowercase letter, 1 uppercase letter, 2 numbers and 2 symbols';
@@ -64,8 +65,7 @@ export class CreateUserDto {
     description:
       'Biography is optional, but must be at most 500 characters long',
     required: false,
-    example:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt sed turpis ac commodo. Aenean iaculis vehicula risus, nec interdum felis fringilla ut. Aliquam ultricies nisl ut nisl efficitur auctor. In viverra sit amet orci et aliquam. Integer dapibus nec sem vitae maximus. Integer consequat mi ipsum, eu sollicitudin neque ultrices id. Nunc vestibulum euismod congue. Morbi ipsum ipsum, ultricies at justo ut, pharetra aliquet eros.',
+    example: lipsumParagraph,
   })
   @IsString()
   @MaxLength(500)

@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { hash, hashSync } from 'bcrypt';
 import { randomUUID } from 'crypto';
+import { Post } from 'src/post/entities/post.entity';
+import { lipsumParagraph } from 'src/utils';
 import {
   BeforeInsert,
   BeforeUpdate,
@@ -9,6 +11,7 @@ import {
   DeleteDateColumn,
   Entity,
   Index,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -48,8 +51,7 @@ export class User {
 
   @Column({ length: 500, nullable: true })
   @ApiProperty({
-    example:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt sed turpis ac commodo. Aenean iaculis vehicula risus, nec interdum felis fringilla ut. Aliquam ultricies nisl ut nisl efficitur auctor. In viverra sit amet orci et aliquam. Integer dapibus nec sem vitae maximus. Integer consequat mi ipsum, eu sollicitudin neque ultrices id. Nunc vestibulum euismod congue. Morbi ipsum ipsum, ultricies at justo ut, pharetra aliquet eros.',
+    example: lipsumParagraph,
     nullable: true,
   })
   biography?: string;

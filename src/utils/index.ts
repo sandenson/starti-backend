@@ -1,0 +1,2 @@
+export const lipsumParagraph =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt sed turpis ac commodo. Aenean iaculis vehicula risus, nec interdum felis fringilla ut. Aliquam ultricies nisl ut nisl efficitur auctor. In viverra sit amet orci et aliquam. Integer dapibus nec sem vitae maximus. Integer consequat mi ipsum, eu sollicitudin neque ultrices id. Nunc vestibulum euismod congue. Morbi ipsum ipsum, ultricies at justo ut, pharetra aliquet eros.';
