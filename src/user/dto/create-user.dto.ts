@@ -8,6 +8,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
   IsNotEmpty,
+  IsOptional,
   IsString,
   IsStrongPassword,
   MaxLength,
@@ -67,6 +68,7 @@ export class CreateUserDto {
     required: false,
     example: lipsumParagraph,
   })
+  @IsOptional()
   @IsString()
   @MaxLength(500)
   biography?: string;
