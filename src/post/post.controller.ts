@@ -1,34 +1,95 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { PostService } from './post.service';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post as PostRoute,
+} from '@nestjs/common';
+import {
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+} from '@nestjs/swagger';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { Post } from './entities/post.entity';
+import { PostService } from './post.service';
+import { UserlessPost } from './types';
 
 @Controller('post')
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
-  @Post()
-  create(@Body() createPostDto: CreatePostDto) {
-    return this.postService.create(createPostDto);
+  @PostRoute()
+  @ApiCreatedResponse({
+    description:
+      'Creates new post and returns the record stored in the database',
+    type: UserlessPost,
+  })
+  create(@Body() dto: CreatePostDto): Promise<Post> {
+    return this.postService.create(dto);
   }
 
   @Get()
-  findAll() {
-    return this.postService.findAll();
+  @ApiOkResponse({
+    description:
+      "Returns every post stored in the database that's not soft-deleted",
+    type: [UserlessPost],
+  })
+  async findAll(): Promise<Post[]> {
+    return await this.postService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postService.findOne(+id);
+  @ApiNotFoundResponse({
+    description: 'NotFoundException: Post not found',
+  })
+  @ApiOkResponse({
+    description: 'Returns the corresponding post',
+    type: UserlessPost,
+  })
+  findOne(@Param('id') id: string): Promise<Post> {
+    return this.postService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postService.update(+id, updatePostDto);
+  @ApiOkResponse({
+    description:
+      "Update is successful and the post's new state in the database is returned",
+    type: UserlessPost,
+  })
+  @ApiNotFoundResponse({
+    description: 'NotFoundException: Post not found',
+  })
+  update(@Param('id') id: string, @Body() dto: UpdatePostDto): Promise<Post> {
+    return this.postService.update(id, dto);
+  }
+
+  @Patch(':id/archive')
+  @ApiOkResponse({
+    description:
+      'Either the archival is successful or the post is already archived; either way its state in the database is returned',
+    type: UserlessPost,
+  })
+  @ApiNotFoundResponse({
+    description: 'NotFoundException: Post not found',
+  })
+  archive(@Param('id') id: string): Promise<Post> {
+    return this.postService.archive(id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.postService.remove(+id);
+  @ApiNotFoundResponse({
+    description: 'NotFoundException: Post not found',
+  })
+  @ApiOkResponse({
+    description:
+      'Post successfully fully removed; its final state in the database is returned',
+    type: UserlessPost,
+  })
+  remove(@Param('id') id: string): Promise<Post> {
+    return this.postService.remove(id);
   }
 }
