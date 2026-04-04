@@ -1,26 +1,70 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { Post } from './entities/post.entity';
 
 @Injectable()
 export class PostService {
-  create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post';
+  constructor(
+    @InjectRepository(Post)
+    private postsRepository: Repository<Post>,
+  ) {}
+  create(dto: CreatePostDto): Promise<Post> {
+    const post = this.postsRepository.create(dto);
+    return this.postsRepository.save(post);
   }
 
-  findAll() {
-    return `This action returns all post`;
+  async findAll(): Promise<Post[]> {
+    const posts = await this.postsRepository.find();
+    return posts;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  async findOne(id: string, withDeleted: boolean = false): Promise<Post> {
+    try {
+      const post = await this.postsRepository.findOne({
+        where: { id },
+        withDeleted,
+      });
+
+      if (!post) {
+        throw new NotFoundException('Post not found');
+      }
+
+      return post;
+    } catch (e: any) {
+      if (e.name == 'QueryFailedError' && /uuid/im.test(e.message)) {
+        throw new BadRequestException("ID isn't a valid UUID");
+      }
+
+      throw e;
+    }
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+  async update(id: string, dto: UpdatePostDto): Promise<Post> {
+    const post = await this.findOne(id);
+    const updated = this.postsRepository.merge(post, dto);
+    return this.postsRepository.save(updated);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async archive(id: string): Promise<Post> {
+    const post = await this.findOne(id);
+
+    if (!post.archived) {
+      const updated = this.postsRepository.merge(post, { archived: true });
+      return this.postsRepository.save(updated);
+    }
+
+    return post;
+  }
+
+  async remove(id: string): Promise<Post> {
+    const post = await this.findOne(id);
+    return this.postsRepository.softRemove(post);
   }
 }
