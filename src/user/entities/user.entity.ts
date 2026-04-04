@@ -39,7 +39,7 @@ export class User {
   @ApiProperty({ example: 'example@email.com' })
   email: string;
 
-  @Column()
+  @Column({ select: false })
   @ApiProperty({
     description: 'Hashed password',
     example: hashSync('Strong12!@', 10),
