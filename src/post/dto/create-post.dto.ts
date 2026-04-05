@@ -1,6 +1,6 @@
 import { ToString, Trim } from '@buka/class-transformer-extra';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID, MaxLength } from 'class-validator';
 import { randomUUID } from 'crypto';
 import { lipsumParagraph } from 'src/utils';
 
@@ -15,8 +15,9 @@ export class CreatePostDto {
 
   @ToString({ optional: true })
   @IsString()
-  @IsNotEmpty()
   @Trim()
+  @IsNotEmpty()
+  @MaxLength(10000)
   @ApiProperty({
     description: 'Text content of the post',
     example: lipsumParagraph,
