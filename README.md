@@ -150,3 +150,20 @@ Nest is [MIT licensed](LICENSE).
 
 <img width="1348" height="344" alt="image" src="https://github.com/user-attachments/assets/e51010c5-558f-4178-b7ab-5715041382a9" />
 <img width="1310" height="504" alt="image" src="https://github.com/user-attachments/assets/b29ed2ba-76fb-40dc-94d5-bc5bb5097ad2" />
+
+## Comment endpoints
+
+### create
+
+<img width="1349" height="701" alt="image" src="https://github.com/user-attachments/assets/1514f37b-10e2-4f9d-a106-c387f14dd353" />
+<img width="1308" height="332" alt="image" src="https://github.com/user-attachments/assets/a4b21f6b-cbb0-4516-bdbc-3d703be36b84" />
+
+### update
+
+<img width="1347" height="758" alt="image" src="https://github.com/user-attachments/assets/2a40faad-a331-416b-859a-3df8e709db5a" />
+<img width="1306" height="348" alt="image" src="https://github.com/user-attachments/assets/33479101-19c0-41c5-96a3-e4e14986c1a0" />
+
+### remove
+
+<img width="1349" height="343" alt="image" src="https://github.com/user-attachments/assets/0d965e9b-30af-44b4-89b1-e3b31fb4f130" />
+<img width="1307" height="346" alt="image" src="https://github.com/user-attachments/assets/6859332d-fcce-4df0-b33f-b8459aad6357" />
