@@ -16,7 +16,7 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './entities/post.entity';
 import { PostService } from './post.service';
-import { UserlessPost } from './types';
+import { BasePost } from './types';
 
 @Controller('post')
 export class PostController {
@@ -26,7 +26,7 @@ export class PostController {
   @ApiCreatedResponse({
     description:
       'Creates new post and returns the record stored in the database',
-    type: UserlessPost,
+    type: BasePost,
   })
   create(@Body() dto: CreatePostDto): Promise<Post> {
     return this.postService.create(dto);
@@ -36,7 +36,7 @@ export class PostController {
   @ApiOkResponse({
     description:
       "Returns every post stored in the database that's not soft-deleted",
-    type: [UserlessPost],
+    type: [BasePost],
   })
   async findAll(): Promise<Post[]> {
     return await this.postService.findAll();
@@ -48,7 +48,7 @@ export class PostController {
   })
   @ApiOkResponse({
     description: 'Returns the corresponding post',
-    type: UserlessPost,
+    type: BasePost,
   })
   findOne(@Param('id') id: string): Promise<Post> {
     return this.postService.findOne(id);
@@ -58,7 +58,7 @@ export class PostController {
   @ApiOkResponse({
     description:
       "Update is successful and the post's new state in the database is returned",
-    type: UserlessPost,
+    type: BasePost,
   })
   @ApiNotFoundResponse({
     description: 'NotFoundException: Post not found',
@@ -71,7 +71,7 @@ export class PostController {
   @ApiOkResponse({
     description:
       'Either the archival is successful or the post is already archived; either way its state in the database is returned',
-    type: UserlessPost,
+    type: BasePost,
   })
   @ApiNotFoundResponse({
     description: 'NotFoundException: Post not found',
@@ -87,7 +87,7 @@ export class PostController {
   @ApiOkResponse({
     description:
       'Post successfully fully removed; its final state in the database is returned',
-    type: UserlessPost,
+    type: BasePost,
   })
   remove(@Param('id') id: string): Promise<Post> {
     return this.postService.remove(id);

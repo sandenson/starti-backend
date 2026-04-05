@@ -14,11 +14,11 @@ import {
   ApiOkResponse,
 } from '@nestjs/swagger';
 import { Post as PostEntity } from 'src/post/entities/post.entity';
-import { UserlessPost } from 'src/post/types';
+import { BasePost } from 'src/post/types';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import { PostslessUser } from './types';
+import { BaseUser } from './types';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -39,7 +39,7 @@ export class UserController {
   @ApiCreatedResponse({
     description:
       'Creates new user and returns the record stored in the database',
-    type: PostslessUser,
+    type: BaseUser,
   })
   create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.userService.create(createUserDto);
@@ -49,7 +49,7 @@ export class UserController {
   @ApiOkResponse({
     description:
       "Returns every user stored in the database that's not soft-deleted",
-    type: [PostslessUser],
+    type: [BaseUser],
   })
   findAll() {
     return this.userService.findAll();
@@ -61,7 +61,7 @@ export class UserController {
   })
   @ApiOkResponse({
     description: 'Returns the corresponding user',
-    type: PostslessUser,
+    type: BaseUser,
   })
   async findOne(@Param('id') id: string): Promise<User> {
     return await this.userService.findOne(id);
@@ -73,7 +73,7 @@ export class UserController {
   })
   @ApiOkResponse({
     description: "Returns the user's posts that are not archived",
-    type: [UserlessPost],
+    type: [BasePost],
   })
   async findPublicPosts(@Param('id') id: string): Promise<PostEntity[]> {
     return await this.userService.findPublicPosts(id);
@@ -99,7 +99,7 @@ export class UserController {
   @ApiOkResponse({
     description:
       "Update is successful and the user's new state in the database is returned",
-    type: PostslessUser,
+    type: BaseUser,
   })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
@@ -108,7 +108,7 @@ export class UserController {
   @Delete(':id')
   @ApiNotFoundResponse({
     description: 'NotFoundException: User not found',
-    type: PostslessUser,
+    type: BaseUser,
   })
   @ApiOkResponse({
     description:
@@ -125,7 +125,7 @@ export class UserController {
   @ApiOkResponse({
     description:
       'User successfully fully removed; its final state in the database is returned',
-    type: PostslessUser,
+    type: BaseUser,
   })
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
