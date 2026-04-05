@@ -4,6 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Comment } from 'src/comment/entities/comment.entity';
 import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
@@ -14,6 +15,8 @@ export class PostService {
   constructor(
     @InjectRepository(Post)
     private postsRepository: Repository<Post>,
+    @InjectRepository(Comment)
+    private commentsRepository: Repository<Comment>,
   ) {}
   create(dto: CreatePostDto): Promise<Post> {
     const post = this.postsRepository.create(dto);
@@ -44,6 +47,18 @@ export class PostService {
 
       throw e;
     }
+  }
+
+  async findPostComments(
+    postId: string,
+    withDeleted: boolean = true,
+  ): Promise<Comment[]> {
+    const comments = await this.commentsRepository.find({
+      where: { postId },
+      withDeleted,
+    });
+
+    return comments;
   }
 
   async update(id: string, dto: UpdatePostDto): Promise<Post> {

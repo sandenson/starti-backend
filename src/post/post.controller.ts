@@ -12,6 +12,8 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
 } from '@nestjs/swagger';
+import { Comment } from 'src/comment/entities/comment.entity';
+import { BaseComment } from 'src/comment/types';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './entities/post.entity';
@@ -52,6 +54,18 @@ export class PostController {
   })
   findOne(@Param('id') id: string): Promise<Post> {
     return this.postService.findOne(id);
+  }
+
+  @Get(':id/comments')
+  @ApiNotFoundResponse({
+    description: 'NotFoundException: Post not found',
+  })
+  @ApiOkResponse({
+    description: "Returns all the post's comments",
+    type: [BaseComment],
+  })
+  async findPostComments(@Param('id') id: string): Promise<Comment[]> {
+    return await this.postService.findPostComments(id);
   }
 
   @Patch(':id')
