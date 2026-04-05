@@ -13,6 +13,8 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
 } from '@nestjs/swagger';
+import { Comment } from 'src/comment/entities/comment.entity';
+import { PostfulComment } from 'src/comment/types';
 import { Post as PostEntity } from 'src/post/entities/post.entity';
 import { BasePost } from 'src/post/types';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -77,6 +79,18 @@ export class UserController {
   })
   async findPublicPosts(@Param('id') id: string): Promise<PostEntity[]> {
     return await this.userService.findPublicPosts(id);
+  }
+
+  @Get(':id/public-comments')
+  @ApiNotFoundResponse({
+    description: 'NotFoundException: User not found',
+  })
+  @ApiOkResponse({
+    description: "Returns the user's comments in posts that are not archived",
+    type: [PostfulComment],
+  })
+  async findPublicComments(@Param('id') id: string): Promise<Comment[]> {
+    return await this.userService.findPublicComments(id);
   }
 
   @Patch(':id')
