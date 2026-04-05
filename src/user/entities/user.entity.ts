@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { hash, hashSync } from 'bcrypt';
 import { randomUUID } from 'crypto';
+import { Comment } from 'src/comment/entities/comment.entity';
 import { Post } from 'src/post/entities/post.entity';
 import { lipsumParagraph } from 'src/utils';
 import {
@@ -63,6 +64,14 @@ export class User {
     isArray: true,
   })
   posts: Post[];
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  @ApiProperty({
+    description: 'Comments posted by the user',
+    type: () => Comment,
+    isArray: true,
+  })
+  comments: Comment[];
 
   @CreateDateColumn({ name: 'created_at' })
   @ApiProperty({ example: new Date().toISOString() })

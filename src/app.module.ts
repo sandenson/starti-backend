@@ -5,11 +5,12 @@ import * as Joi from 'joi';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CommentModule } from './comment/comment.module';
+import { Comment } from './comment/entities/comment.entity';
 import { Post } from './post/entities/post.entity';
 import { PostModule } from './post/post.module';
 import { User } from './user/entities/user.entity';
 import { UserModule } from './user/user.module';
-import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -33,7 +34,7 @@ import { CommentModule } from './comment/comment.module';
         username: config.get('PG_USER'),
         password: config.get('PG_PASSWORD'),
         database: config.get('PG_DB_NAME'),
-        entities: [User, Post],
+        entities: [User, Post, Comment],
         synchronize: !(config.get('PG_DB_NAME') == 'prod'),
         autoLoadEntities: true,
         namingStrategy: new SnakeNamingStrategy(),
