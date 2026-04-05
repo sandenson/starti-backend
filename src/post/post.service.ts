@@ -20,8 +20,8 @@ export class PostService {
     return this.postsRepository.save(post);
   }
 
-  async findAll(): Promise<Post[]> {
-    const posts = await this.postsRepository.find();
+  async findAll(withDeleted: boolean = false): Promise<Post[]> {
+    const posts = await this.postsRepository.find({ withDeleted });
     return posts;
   }
 

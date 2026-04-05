@@ -38,8 +38,8 @@ export class UserService {
     return this.usersRepository.save(newUser);
   }
 
-  async findAll(): Promise<User[]> {
-    const users = await this.usersRepository.find();
+  async findAll(withDeleted: boolean = false): Promise<User[]> {
+    const users = await this.usersRepository.find({ withDeleted });
     return users;
   }
 
