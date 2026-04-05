@@ -119,4 +119,34 @@ Nest is [MIT licensed](LICENSE).
 <img width="1349" height="346" alt="image" src="https://github.com/user-attachments/assets/3b29fee3-9b28-42db-a30d-17335093eec9" />
 <img width="1309" height="582" alt="image" src="https://github.com/user-attachments/assets/911a0bd3-b048-4d2c-b683-823a4d7a578e" />
 
+## Post endpoints
 
+### create
+
+<img width="1330" height="693" alt="image" src="https://github.com/user-attachments/assets/d2405f85-0be3-4054-963c-923e21c23c35" />
+<img width="1307" height="340" alt="image" src="https://github.com/user-attachments/assets/10321823-be27-4790-b816-8503585a84b4" />
+
+### findOne
+
+<img width="1348" height="348" alt="image" src="https://github.com/user-attachments/assets/5dbdb952-220f-4b8c-8cf5-1b843f7da390" />
+<img width="1308" height="347" alt="image" src="https://github.com/user-attachments/assets/d6177550-1b51-4e50-954f-2ada3279936d" />
+
+### update
+
+<img width="1348" height="760" alt="image" src="https://github.com/user-attachments/assets/ef8ad4ef-6101-4a3e-8596-63b78c3713f7" />
+<img width="1306" height="319" alt="image" src="https://github.com/user-attachments/assets/6f612870-42ae-47c9-90df-ab98547be76b" />
+
+### remove
+
+<img width="1351" height="346" alt="image" src="https://github.com/user-attachments/assets/55fbde4a-a5cb-41ca-9dfc-cec624089a72" />
+<img width="1308" height="322" alt="image" src="https://github.com/user-attachments/assets/c8c656bb-3563-4065-8e21-09fd2ad032b6" />
+
+### archive
+
+<img width="1349" height="344" alt="image" src="https://github.com/user-attachments/assets/7a8ec7ad-ffef-4914-b389-7f11cb8a2407" />
+<img width="1306" height="321" alt="image" src="https://github.com/user-attachments/assets/0d54050a-dd47-4873-a11e-33bc86fdc51e" />
+
+### findPostComments
+
+<img width="1348" height="344" alt="image" src="https://github.com/user-attachments/assets/e51010c5-558f-4178-b7ab-5715041382a9" />
+<img width="1310" height="504" alt="image" src="https://github.com/user-attachments/assets/b29ed2ba-76fb-40dc-94d5-bc5bb5097ad2" />
