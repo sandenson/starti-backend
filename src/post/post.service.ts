@@ -51,7 +51,7 @@ export class PostService {
 
   async findPostComments(
     postId: string,
-    withDeleted: boolean = true,
+    withDeleted: boolean = false,
   ): Promise<Comment[]> {
     const comments = await this.commentsRepository.find({
       where: { postId },
